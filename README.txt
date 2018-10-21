@@ -8,6 +8,6 @@ make run: to build and run the executable
 
 make bin: to build and create the executable at bin/ dir
 
-EXECUTE: ./bares [input_file](arithmetic expression file format)
+EXECUTE: ./bares [input_file](arithmetic expression file format) [output_file]
 
 @author: Lucas Miguel Martiniano / 'lus-cas'
