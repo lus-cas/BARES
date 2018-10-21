@@ -10,6 +10,10 @@ int main(int argc, char const *argv[]){
 		exit(-1);
 	}
 	
+	// if(argc <= 1){
+	// 	throw std::runtime_error("No input file");
+	// }
+
 	Bares bares (argv[1]);
 	
 	return 0;

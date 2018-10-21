@@ -13,15 +13,17 @@ class Bares{
 		std::vector<std::string> expressions;
 
 	public:
-		//contruroes e destrutor
+		//constructors and destructor
 		Bares(void);
 		Bares(std::string);
 		~Bares(void);
 
-		//funções gerais
+		//general functions
 		std::string trim(std::string);
+		bool higher_precedence(char, char);
+		std::string inflix_to_postfix(std::string);
 
-		//sobrecarga
+		//operators overload
 		friend std::ostream & operator<<(std::ostream &os, const Bares b);
 };
 
