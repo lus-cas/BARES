@@ -4,6 +4,8 @@ using namespace std;
 
 int main(int argc, char const *argv[]){
 
+	//to do: make it work using std::cin and std::cout
+
 	if(argc <= 1){
 		cout << endl << "ERROR: no input file" << endl;
 		cout << endl << "Aborting..." << endl;
@@ -15,6 +17,10 @@ int main(int argc, char const *argv[]){
 	// }
 
 	Bares bares (argv[1]);
+
+	std::string x = bares.get_expressions()[0];
+
+	cout << x;
 	
 	return 0;
 }

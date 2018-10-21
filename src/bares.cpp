@@ -2,16 +2,16 @@
 
 //default contructor
 Bares::Bares(){
+	//this->expressions = NULL;
 }
 
 //contructor
 Bares::Bares(std::string expression_file_path){
 	//input file stream variable to load the arithmetic expressions file
-	std::ifstream expression_file;
-	expression_file.open(expression_file_path);
+	this->input_file.open(expression_file_path);
 	
 	//avoids failures to open file
-	if (!(expression_file.good() && expression_file.is_open())){
+	if (!(this->input_file.good() && this->input_file.is_open())){
 		std::cout << std::endl << "ERROR: failed to open file '" << expression_file_path << "'" << std::endl;
 		std::cout << std::endl << "Aborting..." << std::endl;
 		exit(-1);
@@ -20,7 +20,7 @@ Bares::Bares(std::string expression_file_path){
 	//string variable to assume each line from file
 	std::string line;
 
-	while(std::getline(expression_file, line) && ! expression_file.fail()){
+	while(std::getline(this->input_file, line) && ! this->input_file.fail()){
 		//filling the arithmetic expressions vector from Bares class
 		this->expressions.push_back(Bares::trim(line)); //prevents blank spaces and tabs
 	}
@@ -28,8 +28,21 @@ Bares::Bares(std::string expression_file_path){
 
 //destructor
 Bares::~Bares(){
-	
+	if (this->input_file.is_open()) this->input_file.close();
+	if (this->output_file.is_open()) this->output_file.close();
 }
+
+//getters and setters
+std::vector<std::string> Bares::get_expressions(void){
+	return this->expressions;
+}
+
+void Bares::set_expressions(std::vector<std::string> expressions){
+	this->expressions = expressions;
+}
+
+
+//general functions:
 
 //function to remove blank spaces and tabs from strings
 std::string Bares::trim(std::string str){
