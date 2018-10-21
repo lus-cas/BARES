@@ -10,7 +10,7 @@
 
 class Bares{
 	private:
-		std::string expression;
+		std::vector<std::string> expressions;
 
 	public:
 		//contruroes e destrutor

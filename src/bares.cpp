@@ -1,12 +1,27 @@
 #include "../include/bares.hpp"
 
 Bares::Bares(){
-	this->expression = " ";
 }
 
-Bares::Bares(std::string expression){
-	this->expression = Bares::trim(expression);
-	std::cout << this->expression << std::endl;
+Bares::Bares(std::string expression_file_path){
+	std::ifstream expression_file;
+	expression_file.open(expression_file_path);
+	
+	if (!(expression_file.good() && expression_file.is_open())){
+		std::cout << std::endl << "ERROR: fail to open file '" << expression_file_path << "'" << std::endl;
+		std::cout << std::endl << "Aborting..." << std::endl;
+		exit(-1);
+	}
+
+	std::string line;
+
+	while(std::getline(expression_file, line) && ! expression_file.fail()){
+		this->expressions.push_back(Bares::trim(line));
+	}
+
+	// for(int i = 0; i < (int)(this->expressions.end() - this->expressions.begin()); i++){
+	// 	std::cout << this->expressions[i] << std::endl;
+	// }
 }
 
 Bares::~Bares(){

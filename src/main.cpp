@@ -2,17 +2,15 @@
 
 using namespace std;
 
-int main(void){
-	string expression;
+int main(int argc, char const *argv[]){
+
+	if(argc <= 1){
+		cout << endl << "ERROR: no input file" << endl;
+		cout << endl << "Aborting..." << endl;
+		exit(-1);
+	}
 	
-	cout << "Insert arithmetic expression: ";
-	std::getline(std::cin, expression);
-
-	cout << "\n *inserted string: " << expression <<endl;
-
-	Bares Bares(expression);
-
-	//cout << Bares.expression << endl;
+	Bares bares (argv[1]);
 	
 	return 0;
 }
