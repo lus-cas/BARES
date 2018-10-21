@@ -16,11 +16,9 @@ int main(int argc, char const *argv[]){
 	// 	throw std::runtime_error("No input file");
 	// }
 
-	Bares bares (argv[1]);
+	Bares b (argv[1]);
 
-	std::string x = bares.get_expressions()[0];
-
-	cout << x;
+	cout << b;
 	
 	return 0;
 }

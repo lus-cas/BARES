@@ -30,7 +30,8 @@ class Bares{
 		std::string inflix_to_postfix(std::string);
 
 		//operators overload
-		friend std::ostream & operator<<(std::ostream &os, const Bares);
+		friend std::ostream & operator<<(std::ostream &os, const Bares &b);
+
 };
 
 

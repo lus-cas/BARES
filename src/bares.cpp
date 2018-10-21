@@ -2,7 +2,7 @@
 
 //default contructor
 Bares::Bares(){
-	//this->expressions = NULL;
+
 }
 
 //contructor
@@ -28,8 +28,8 @@ Bares::Bares(std::string expression_file_path){
 
 //destructor
 Bares::~Bares(){
-	if (this->input_file.is_open()) this->input_file.close();
-	if (this->output_file.is_open()) this->output_file.close();
+	// if (this->input_file.is_open()) this->input_file.close();
+	// if (this->output_file.is_open()) this->output_file.close();
 }
 
 //getters and setters
@@ -58,10 +58,9 @@ std::string Bares::trim(std::string str){
 }
 
 //output stream operator << overload
-std::ostream & operator<<(std::ostream &os, const Bares b){
+std::ostream & operator<<(std::ostream &os, const Bares &b){
 	for(int i = 0; i < (int)(b.expressions.end() - b.expressions.begin()); i++){
 		os << b.expressions[i] << "\n";
 	}
-
 	return os;
 }
