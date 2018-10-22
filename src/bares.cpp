@@ -32,6 +32,10 @@ Bares::Bares(std::string input_file_path, std::string output_file_path){
 		//filling the arithmetic expressions vector from Bares class
 		this->expressions.push_back(Bares::trim(line)); //prevents blank spaces and tabs
 	}
+
+	for(int i = 0; i < (int)(this->expressions.end() - this->expressions.begin()); i++){
+		output_file << this->expressions[i] << "\n";
+	}
 }
 
 //destructor

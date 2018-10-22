@@ -16,7 +16,8 @@ int main(int argc, char const *argv[]){
 	// 	throw std::runtime_error("No input file");
 	// }
 
-	Bares b(argv[0], argv[1]);
+
+	Bares b(argv[1], argv[2]);
 	//cout << b;
 	
 	return 0;
