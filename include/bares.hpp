@@ -8,6 +8,9 @@
 #include <vector>
 #include <algorithm>
 
+using value_t = short int;
+using symbol = char;
+
 class Bares{
 	private:
 		std::ifstream input_file;
@@ -27,7 +30,11 @@ class Bares{
 		//general functions
 		std::string trim(std::string);
 		bool higher_precedence(char, char);
-		std::string inflix_to_postfix(std::string);
+		std::string infix_to_postfix(std::string);
+
+		//math function
+		value_t pow(value_t, value_t);
+		value_t execute_operator(value_t, value_t, symbol);
 
 		//operators overload
 		friend std::ostream & operator<<(std::ostream &os, const Bares b);
