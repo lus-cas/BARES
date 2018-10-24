@@ -1,5 +1,5 @@
-#ifndef BARES_HPP
-#define BARES_HPP
+#ifndef BARES_H
+#define BARES_H
 
 #include <iostream>
 #include <fstream>
@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 
-using value_t = short int;
+using value_t = long int;
 using symbol = char;
 
 class Bares{
@@ -19,7 +19,7 @@ class Bares{
 
 	public:
 		//constructors and destructor
-		Bares(void);
+		Bares(void) = default;
 		Bares(std::string, std::string);
 		~Bares(void);
 
