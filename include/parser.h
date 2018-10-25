@@ -20,6 +20,8 @@ class Parser{
             TS_DIV,             //"/"
             TS_POW,             //"^"
             TS_MOD,             //"%"
+            TS_OS,              //"("
+            TS_CS,              //")"
             TS_ZERO,            //"0"
             TS_NON_ZERO_DIGIT,  //digits from "1" to "9"
             TS_WS,              //white space

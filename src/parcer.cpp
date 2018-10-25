@@ -34,8 +34,13 @@ void Parser::next_symbol(){
 	this->current_symbol++;
 }
 
-bool Parser::accept(terminal_symbol_t){
+bool Parser::accept(terminal_symbol_t c){
+	if(!end_input() && lexer(*current_symbol) == c){
+		next_symbol();
+		return true;
+	}
 
+	return false;
 }
 
 //advances the current_symbol iterator through blank spaces - white spaces (ascii: 32) or tabs (ascii: 9) - untill reach a valid character or end of the input string
@@ -76,8 +81,28 @@ bool Parser::digit(){
 }
 
 //Parser main function
-ResultType Parser::parse(std::string){
+ResultType Parser::parse(std::string expression){
+	this->expression = expression;
+    this->current_symbol = this->expression.begin();
+    this->result = ResultType(ResultType::OK);
 
+    this->tokens.clear();
+
+    skip_bs();
+
+    if(end_input()){
+        this->result =  ResultType( ResultType::UNEXPECTED_END_OF_EXPRESSION, std::distance(this->expression.begin(), this->current_symbol));
+    
+    }else{
+        if(expression()){
+            skip_bs();
+            if(!end_input()){
+                this->result.type = ResultType::EXTRANEOUS_SYMBOL;
+                this->result.at_col = std::distance(this->expression.begin(), this->current_symbol);
+            }
+        }
+    }
+    return this->result;
 }
 
 //tokens getter

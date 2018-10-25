@@ -1,4 +1,22 @@
 #include "../include/parser.h"
+
+/// This class represents a parser that **validates** and **tokenizes** an expression.
+/*!
+ * This class does two tasks:
+ *
+ * 1. It implements a recursive descendent parser that validates expressions according to a EBNF grammar.
+ * 2. While validating an expression, it also tokenizes the input expression into its components, creating a list of tokens as an output.
+ *
+ * The grammar is:
+ * ```
+ *   <expr>            := <term>,{ ("+"|"-"),<term> };
+ *   <term>            := <integer>;
+ *   <integer>         := "0" | ["-"],<natural_number>;
+ *   <natural_number>  := <digit_excl_zero>,{<digit>};
+ *   <digit_excl_zero> := "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+ *   <digit>           := "0"| <digit_excl_zero>;
+ * ```
+ */
 /// Converts the input character c_ into its corresponding terminal symbol code.
 Parser::terminal_symbol_t  Parser::lexer( char c_ ) const
 {
