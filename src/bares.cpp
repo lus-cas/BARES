@@ -25,7 +25,7 @@ Bares::Bares(std::string input_file_path, std::string output_file_path){
 
 	while(std::getline(this->input_file, line) && ! this->input_file.fail()){
 		//filling the arithmetic expressions vector from Bares class
-		this->expressions.push_back(Bares::trim(line)); //prevents blank spaces and tabs
+		this->expressions.push_back(line); //prevents blank spaces and tabs
 	}
 }
 
@@ -44,26 +44,21 @@ void Bares::set_expressions(std::vector<std::string> expressions){
 	this->expressions = expressions;
 }
 
+std::vector<Token> const Bares::get_tokens(void){
+	return this->tokens;
+}
+
+void Bares::set_tokens(std::vector<Token> tokens){
+	this->tokens = tokens;
+}
+
 
 //general functions:
 
-//function to remove blank spaces and tabs from strings
-std::string Bares::trim(std::string str){
-	std::string trim;
-
-	for(unsigned int i = 0; i < str.length(); i++){
-		if(! (str[i] == (char)32 || str[i] == (char)9)){
-			trim += str[i];
-		}
-	}
-
-	return trim;
-}
-
 //output stream operator << overload
-std::ostream & operator<<(std::ostream &os, const Bares b){
-	for(int i = 0; i < (int)(b.expressions.end() - b.expressions.begin()); i++){
-		os << b.expressions[i] << "\n";
-	}
-	return os;
-}
+// std::ostream & operator<<(std::ostream &os, const Bares b){
+// 	for(int i = 0; i < (int)(b.expressions.end() - b.expressions.begin()); i++){
+// 		os << b.expressions[i] << "\n";
+// 	}
+// 	return os;
+// }

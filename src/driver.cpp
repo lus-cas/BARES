@@ -2,11 +2,11 @@
 #include <iomanip>
 #include <vector>
 #include "../include/parser.h"
-std::vector<std::string> expressions =
-{
+#include "../include/bares.h"
+/* std::vector<std::string> expressions = {
     "0",
-    "(4 + 1) * 8",
-    "(4 + 1) % 8",
+    "4 + 1) * 8",
+    "(4 + 1 % 8",
     "4 + 03",
     "10",
     "    12    +    4   8",
@@ -25,7 +25,7 @@ std::vector<std::string> expressions =
     "32a23",
     "43 + 54 -   ",
     "1234567888889974232214433432 + 4"
-};
+}; */
 
 void print_error_msg(const Parser::ResultType & result, std::string str){
     std::string error_indicator(str.size()+1, ' ');
@@ -48,7 +48,7 @@ void print_error_msg(const Parser::ResultType & result, std::string str){
             std::cout << ">>> Integer constant out of range beginning at column (" << result.at_col << ")!\n";
             break;
         case Parser::ResultType::MISSING_CLOSING_SCOPE:
-            std::cout << ">>> Missing closing "")"" at column (" << result.at_col << ")!\n";
+            std::cout << ">>> Missing closing \")\" at column (" << result.at_col << ")!\n";
             break;
         default:
             std::cout << ">>> Unhandled error found!\n";
@@ -57,10 +57,20 @@ void print_error_msg(const Parser::ResultType & result, std::string str){
     std::cout << "\"" << str << "\"\n";
     std::cout << " " << error_indicator << std::endl;
 }
-int main(){
-    Parser my_parser; // Instancia um parser.
+
+int main(int argc, char const *argv[]){
+    //Parser my_parser; // Instancia um parser.
+    if(argc <= 2){
+        std::cout << "\nERROR: missing file\n";
+        std::cout << "\nAborting...\n" << std::endl;
+        exit(-1);
+    }
+
+    Bares my_bares(argv[1], argv[2]);
+    Parser my_parser;
+
     // Tentar analisar cada expressão da lista.
-    for( const auto & expr : expressions ){
+    for(const auto & expr : my_bares.get_expressions()){
         // Fazer o parsing desta expressão.
         auto result = my_parser.parse(expr);
         // Preparar cabeçalho da saida.

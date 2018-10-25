@@ -107,19 +107,35 @@ bool Parser::term(){
 		std::string token_string;
 		std::copy(token_begin, current_symbol, std::back_inserter(token_string));
 
-		input_t token = stoll(token_string);
+		input_t token;
 
-		//verifies if the token value is in the required range
-		if(token < std::numeric_limits<required_t>::min() || token > std::numeric_limits<required_t>::max()){
-			this->result.type = ResultType::INTEGER_OUT_OF_RANGE;
-			this->result.at_col = std::distance(this->expr.begin(), token_begin);
+        try{
+            token = stoll(token_string);
 
-		}else{
-			this->tokens.emplace_back(Token(token_string, Token::token_t::OPERAND));
-		}
+        }catch(const std::invalid_argument & e){
+            this->result.type = ResultType::ILL_FORMED_INTEGER;
+            this->result.at_col = std::distance(this->expr.begin(), token_begin); 
 
+            return false;
+
+        }catch( const std::out_of_range & e ){
+            this->result.type = ResultType::INTEGER_OUT_OF_RANGE;
+            this->result.at_col = std::distance(this->expr.begin(), token_begin); 
+
+            return false;
+
+        }
+        
+        //verifies if the token value is in the required range
+        if(token < std::numeric_limits<required_t>::min() || token > std::numeric_limits<required_t>::max()){
+            this->result.type = ResultType::INTEGER_OUT_OF_RANGE;
+            this->result.at_col = std::distance(this->expr.begin(), token_begin);
+
+        }else{
+            this->tokens.emplace_back(Token(token_string, Token::token_t::OPERAND));
+            
+        }
 	}else if(accept(terminal_symbol_t::TS_OS)){
-		std::cout << "opnening scope detected" << std::endl;
 		this->tokens.emplace_back(Token( "(", Token::token_t::SCOPE));
 
 		expression();
@@ -186,7 +202,7 @@ Parser::ResultType Parser::parse(std::string expr){
     //std::cout << *current_symbol << std::endl;
 
     if(end_input()){
-        this->result =  ResultType( ResultType::UNEXPECTED_END_OF_EXPRESSION, std::distance(this->expr.begin(), this->current_symbol));
+        this->result =  ResultType(ResultType::UNEXPECTED_END_OF_EXPRESSION, std::distance(this->expr.begin(), this->current_symbol));
     
     }else{
         if(expression()){
