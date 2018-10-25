@@ -146,14 +146,21 @@ bool Parser::integer(){
     return natural_number();
 }
 
+//<natural_number> := <digit_excl_zero>, {<digit>};
 bool Parser::natural_number(){
+	if(digit_excl_zero()) return false;
 
+	while(digit());
+
+	return true;
 }
 
+//<digit_excl_zero> := "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 bool Parser::digit_excl_zero(){
-
+	return accept(terminal_symbol_t::TS_NON_ZERO_DIGIT);
 }
 
+//<digit> := "0" | <digit_excl_zero>;
 bool Parser::digit(){
 
 }
