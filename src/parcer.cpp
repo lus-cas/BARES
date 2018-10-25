@@ -162,7 +162,10 @@ bool Parser::digit_excl_zero(){
 
 //<digit> := "0" | <digit_excl_zero>;
 bool Parser::digit(){
-
+	if(!accept(terminal_symbol_t::TS_ZERO)){
+        return digit_excl_zero();
+    }
+    return true;
 }
 
 //Parser main function
