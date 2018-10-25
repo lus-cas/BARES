@@ -56,8 +56,42 @@ bool const Parser::end_input(void){
 }
 
 //methodos to evaluate the grammar
-bool Parser::expression(){
 
+//<expression> := <term>, { ( "+" | "-" | "*" | "/" | "%" | "^" ), <term> };
+bool Parser::expression(){
+	term();
+    
+    while(this->result.type == ResultType::OK){
+        skip_ws();
+
+        //parses the operator
+        if(accept(Parser::terminal_symbol_t::TS_ADD)){
+           this->tokens.emplace_back(Token( "+", Token::token_t::OPERATOR));
+
+        }else if(accept(Parser::terminal_symbol_t::TS_SUB)){
+           this->tokens.emplace_back(Token( "-", Token::token_t::OPERATOR));
+
+        }else if(accept(Parser::terminal_symbol_t::TS_MULT)){
+           this->tokens.emplace_back(Token( "*", Token::token_t::OPERATOR));
+
+        }else if(accept(Parser::terminal_symbol_t::TS_DIV)){
+           this->tokens.emplace_back(Token( "/", Token::token_t::OPERATOR));
+
+        }else if(accept(Parser::terminal_symbol_t::TS_POW)){
+           this->tokens.emplace_back(Token( "^", Token::token_t::OPERATOR));
+
+        }else if(accept(Parser::terminal_symbol_t::TS_MOD)){
+           this->tokens.emplace_back(Token( "%%", Token::token_t::OPERATOR));
+
+        }else break;
+
+        //verifies if there's a valid term after the operator
+        if(!term() && this->result.type == ResultType::ILL_FORMED_INTEGER){
+            this->result.type = ResultType::MISSING_TERM;
+        }
+    }
+
+    return this->result.type == ResultType::OK;
 }
 
 bool Parser::term(){

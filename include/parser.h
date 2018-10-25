@@ -10,6 +10,16 @@
 #include <cctype>   // std::isspace()
 #include "token.h"  // Token struct
 
+/*
+used EBNF grammar:
+    <expression>       :=   <term>, { ( "+" | "-" | "*" | "/" | "%" | "^" ), <term> };
+    <term>             :=   "(", <expression>, ")" | <integer>;
+    <integer>          :=   0 | [ "-" ], <natural_number>;
+    <natural_number>   :=   <digit_excl_zero>, {<digit>};
+    <digit_excl_zero>  :=   "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+    <digit>            :=   "0" | <digit_excl_zero>;
+*/
+
 class Parser{
     private:
         // terminal symbols table
