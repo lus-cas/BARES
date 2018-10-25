@@ -1,1 +1,14 @@
-
+Extraneous symbol after valid expression found at column (5)!
+Missing closing ")" at column (10)!
+Extraneous symbol after valid expression found at column (5)!
+Extraneous symbol after valid expression found at column (19)!
+Integer constant out of range beginning at column (8)!
+Integer constant out of range beginning at column (4)!
+Ill formed integer at column (0)!
+Extraneous symbol after valid expression found at column (1)!
+Ill formed integer at column (0)!
+Unexpected end of input at column (7)!
+Missing <term> at column (4)!
+Extraneous symbol after valid expression found at column (2)!
+Missing <term> at column (12)!
+Integer constant out of range beginning at column (0)!

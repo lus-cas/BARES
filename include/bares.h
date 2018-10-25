@@ -26,6 +26,9 @@ class Bares{
 		Bares(std::string, std::string);
 		~Bares(void);
 
+		//output
+		void write(std::string);
+
 		//general functions
 		bool is_operator(symbol);
 		bool is_operand(symbol);
@@ -46,9 +49,6 @@ class Bares{
 		void set_expressions(std::vector<std::string>);
 		std::vector<Token> const get_tokens(void);
 		void set_tokens(std::vector<Token>);
-
-		//operators overload
-		//friend std::ostream & operator<<(std::ostream &os, const Bares b);
 
 };
 

@@ -7,7 +7,7 @@ Bares::Bares(std::string input_file_path, std::string output_file_path){
 	
 	//avoids failures to open file
 	if (!(this->input_file.good() && this->input_file.is_open())){
-		std::cout << "\nERROR: failed to open input file '" << input_file_path << "'\n";
+		std::cout << "\nERROR: failed to open input file \"" << input_file_path << "\"\n";
 		std::cout << "\nAborting..." << std::endl;
 		exit(-1);
 	}
@@ -15,7 +15,7 @@ Bares::Bares(std::string input_file_path, std::string output_file_path){
 	this->output_file.open(output_file_path, std::ofstream::out | std::ofstream::app);
 
 	if (!(this->output_file.good() && this->output_file.is_open())){
-		std::cout << "\nERROR: failed to open output file '" << output_file_path << "'\n";
+		std::cout << "\nERROR: failed to open output file \"" << output_file_path << "\"\n";
 		std::cout << "\nAborting..." << std::endl;
 		exit(-1);
 	}
@@ -25,7 +25,7 @@ Bares::Bares(std::string input_file_path, std::string output_file_path){
 
 	while(std::getline(this->input_file, line) && ! this->input_file.fail()){
 		//filling the arithmetic expressions vector from Bares class
-		this->expressions.push_back(line); //prevents blank spaces and tabs
+		this->expressions.push_back(line);
 	}
 }
 
@@ -52,13 +52,18 @@ void Bares::set_tokens(std::vector<Token> tokens){
 	this->tokens = tokens;
 }
 
+//output
+
+//tris to save a string on output file
+void Bares::write(std::string output){
+	try{
+		output_file << output << "\n";
+	}catch(int & e){
+		std::cout << "\nERROR: could not save data on output file\n";
+		std::cout << "\nAborting..." << std::endl;
+		exit(-1);
+	}
+}
+
 
 //general functions:
-
-//output stream operator << overload
-// std::ostream & operator<<(std::ostream &os, const Bares b){
-// 	for(int i = 0; i < (int)(b.expressions.end() - b.expressions.begin()); i++){
-// 		os << b.expressions[i] << "\n";
-// 	}
-// 	return os;
-// }
