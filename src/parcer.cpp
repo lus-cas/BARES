@@ -138,8 +138,12 @@ bool Parser::term(){
 	return this->result.type == ResultType::OK;
 }
 
+//<integer> := 0 | [ "-" ], <natural_number>;
 bool Parser::integer(){
-
+	if(accept(terminal_symbol_t::TS_ZERO)) return true;
+    
+    accept(terminal_symbol_t::TS_SUB);
+    return natural_number();
 }
 
 bool Parser::natural_number(){
