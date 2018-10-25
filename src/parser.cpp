@@ -3,7 +3,7 @@
 //support methods
 
 //converts the input character c into its corresponding terminal symbol code
-terminal_symbol_t const Parser::lexer(char c){
+Parser::terminal_symbol_t const Parser::lexer(char c){
 	switch(c){
         case '+':	return terminal_symbol_t::TS_ADD;
         case '-':	return terminal_symbol_t::TS_SUB;
@@ -11,6 +11,8 @@ terminal_symbol_t const Parser::lexer(char c){
         case '/':	return terminal_symbol_t::TS_DIV;
         case '^':	return terminal_symbol_t::TS_POW;
         case '%':	return terminal_symbol_t::TS_MOD;
+       	case '(':	return terminal_symbol_t::TS_OS;
+        case ')':	return terminal_symbol_t::TS_CS;
         case ' ':	return terminal_symbol_t::TS_WS;
         case   9:	return terminal_symbol_t::TS_TAB;
         case '0':	return terminal_symbol_t::TS_ZERO;
@@ -52,7 +54,7 @@ void Parser::skip_bs(void){
 
 //returns true if the processing reached the end of the input string
 bool const Parser::end_input(void){
-	return this->current_symbol == this->expression.end();
+	return this->current_symbol == this->expr.end();
 }
 
 //methodos to evaluate the grammar
@@ -81,7 +83,7 @@ bool Parser::expression(){
            this->tokens.emplace_back(Token( "^", Token::token_t::OPERATOR));
 
         }else if(accept(Parser::terminal_symbol_t::TS_MOD)){
-           this->tokens.emplace_back(Token( "%%", Token::token_t::OPERATOR));
+           this->tokens.emplace_back(Token( "%", Token::token_t::OPERATOR));
 
         }else break;
 
@@ -108,31 +110,32 @@ bool Parser::term(){
 		input_t token = stoll(token_string);
 
 		//verifies if the token value is in the required range
-		if(token < std::numeric_limits<required_t>::min() || token_int > std::numeric_limits<required_t>::max()){
+		if(token < std::numeric_limits<required_t>::min() || token > std::numeric_limits<required_t>::max()){
 			this->result.type = ResultType::INTEGER_OUT_OF_RANGE;
-			this->result.at_col = std::distance(this->expression.begin(), token_begin);
+			this->result.at_col = std::distance(this->expr.begin(), token_begin);
 
 		}else{
 			this->tokens.emplace_back(Token(token_string, Token::token_t::OPERAND));
 		}
 
-	}else if(accept(Parser::terminal_symbol_t::TS_OS)){
+	}else if(accept(terminal_symbol_t::TS_OS)){
+		std::cout << "opnening scope detected" << std::endl;
 		this->tokens.emplace_back(Token( "(", Token::token_t::SCOPE));
 
 		expression();
 
-		if(accept(Parser::terminal_symbol_t::TS_CS){
+		if(accept(terminal_symbol_t::TS_CS)){
 			this->tokens.emplace_back(Token( ")", Token::token_t::SCOPE));
 
 		}else{
 			this->result.type = ResultType::MISSING_CLOSING_SCOPE;
-			this->result.at_col = std::distance(this->expression.begin(), current_symbol);
+			this->result.at_col = std::distance(this->expr.begin(), current_symbol);
 
 		}
 
 	}else{
 		this->result.type = ResultType::ILL_FORMED_INTEGER;
-		this->result.at_col = std::distance(this->expression.begin(), this->current_symbol);
+		this->result.at_col = std::distance(this->expr.begin(), this->current_symbol);
 	}
 
 	return this->result.type == ResultType::OK;
@@ -148,7 +151,7 @@ bool Parser::integer(){
 
 //<natural_number> := <digit_excl_zero>, {<digit>};
 bool Parser::natural_number(){
-	if(digit_excl_zero()) return false;
+	if(!digit_excl_zero()) return false;
 
 	while(digit());
 
@@ -169,24 +172,28 @@ bool Parser::digit(){
 }
 
 //Parser main function
-ResultType Parser::parse(std::string expression){
-	this->expression = expression;
-    this->current_symbol = this->expression.begin();
+Parser::ResultType Parser::parse(std::string expr){
+	this->expr = expr;
+    this->current_symbol = this->expr.begin();
     this->result = ResultType(ResultType::OK);
+
+    //std::cout << *current_symbol << std::endl;
 
     this->tokens.clear();
 
     skip_bs();
 
+    //std::cout << *current_symbol << std::endl;
+
     if(end_input()){
-        this->result =  ResultType( ResultType::UNEXPECTED_END_OF_EXPRESSION, std::distance(this->expression.begin(), this->current_symbol));
+        this->result =  ResultType( ResultType::UNEXPECTED_END_OF_EXPRESSION, std::distance(this->expr.begin(), this->current_symbol));
     
     }else{
         if(expression()){
             skip_bs();
             if(!end_input()){
                 this->result.type = ResultType::EXTRANEOUS_SYMBOL;
-                this->result.at_col = std::distance(this->expression.begin(), this->current_symbol);
+                this->result.at_col = std::distance(this->expr.begin(), this->current_symbol);
             }
         }
     }

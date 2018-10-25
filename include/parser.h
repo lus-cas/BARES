@@ -21,45 +21,6 @@ used EBNF grammar:
 */
 
 class Parser{
-    private:
-        // terminal symbols table
-        enum class terminal_symbol_t{
-            TS_ADD,             //"+"
-            TS_SUB,             //"-"
-            TS_MULT,            //"*"
-            TS_DIV,             //"/"
-            TS_POW,             //"^"
-            TS_MOD,             //"%"
-            TS_OS,              //"("
-            TS_CS,              //")"
-            TS_ZERO,            //"0"
-            TS_NON_ZERO_DIGIT,  //digits from "1" to "9"
-            TS_WS,              //white space
-            TS_TAB,             //tab
-            TS_EOS,             //"End Of String"
-            TS_INVALID          //invalid token
-        };
-
-        std::string expression;
-        std::string::iterator current_symbol;
-        std::vector<Token> tokens;
-        ResultType result;
-
-        //support methods
-        terminal_symbol_t const lexer(char);
-        void next_symbol(void);
-        bool accept(terminal_symbol_t);
-        void skip_bs(void);
-        bool const end_input(void);
-
-        //methodos to evaluate the grammar
-        bool expression();
-        bool term();
-        bool integer();
-        bool natural_number();
-        bool digit_excl_zero();
-        bool digit();
-
     public:
         //constructors and destructor
         Parser() = default;
@@ -99,5 +60,45 @@ class Parser{
 
         //getter
         std::vector<Token> const get_tokens(void);
+
+    private:
+        // terminal symbols table
+        enum class terminal_symbol_t{
+            TS_ADD,             //"+"
+            TS_SUB,             //"-"
+            TS_MULT,            //"*"
+            TS_DIV,             //"/"
+            TS_POW,             //"^"
+            TS_MOD,             //"%"
+            TS_OS,              //"("
+            TS_CS,              //")"
+            TS_ZERO,            //"0"
+            TS_NON_ZERO_DIGIT,  //digits from "1" to "9"
+            TS_WS,              //white space
+            TS_TAB,             //tab
+            TS_EOS,             //"End Of String"
+            TS_INVALID          //invalid token
+        };
+
+        std::string expr;
+        std::string::iterator current_symbol;
+        std::vector<Token> tokens;
+        ResultType result;
+
+        //support methods
+        terminal_symbol_t const lexer(char);
+        void next_symbol(void);
+        bool accept(terminal_symbol_t);
+        void skip_bs(void);
+        bool const end_input(void);
+
+        //methodos to evaluate the grammar
+        bool expression();
+        bool term();
+        bool integer();
+        bool natural_number();
+        bool digit_excl_zero();
+        bool digit();
+
 };
 #endif
