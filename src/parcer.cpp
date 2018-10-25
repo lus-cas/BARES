@@ -62,7 +62,7 @@ bool Parser::expression(){
 	term();
     
     while(this->result.type == ResultType::OK){
-        skip_ws();
+        skip_bs();
 
         //parses the operator
         if(accept(Parser::terminal_symbol_t::TS_ADD)){
@@ -94,8 +94,48 @@ bool Parser::expression(){
     return this->result.type == ResultType::OK;
 }
 
+//<term> := "(", <expression>, ")" | <integer>;
 bool Parser::term(){
+	skip_bs();
 
+	auto token_begin = current_symbol;
+
+	if(integer()){
+		//stores the token value as string
+		std::string token_string;
+		std::copy(token_begin, current_symbol, std::back_inserter(token_string));
+
+		input_t token = stoll(token_string);
+
+		//verifies if the token value is in the required range
+		if(token < std::numeric_limits<required_t>::min() || token_int > std::numeric_limits<required_t>::max()){
+			this->result.type = ResultType::INTEGER_OUT_OF_RANGE;
+			this->result.at_col = std::distance(this->expression.begin(), token_begin);
+
+		}else{
+			this->tokens.emplace_back(Token(token_string, Token::token_t::OPERAND));
+		}
+
+	}else if(accept(Parser::terminal_symbol_t::TS_OS)){
+		this->tokens.emplace_back(Token( "(", Token::token_t::SCOPE));
+
+		expression();
+
+		if(accept(Parser::terminal_symbol_t::TS_CS){
+			this->tokens.emplace_back(Token( ")", Token::token_t::SCOPE));
+
+		}else{
+			this->result.type = ResultType::MISSING_CLOSING_SCOPE;
+			this->result.at_col = std::distance(this->expression.begin(), current_symbol);
+
+		}
+
+	}else{
+		this->result.type = ResultType::ILL_FORMED_INTEGER;
+		this->result.at_col = std::distance(this->expression.begin(), this->current_symbol);
+	}
+
+	return this->result.type == ResultType::OK;
 }
 
 bool Parser::integer(){

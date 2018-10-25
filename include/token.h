@@ -6,7 +6,8 @@
 struct Token{
     enum class token_t : int{
         OPERAND,
-        OPERATOR
+        OPERATOR,
+        SCOPE
     };
 
     std::string value;
@@ -18,13 +19,13 @@ struct Token{
     //     , type( type_ )
     // {/* empty */}
 
-    explicit Token(std::string value="", token_t type = token_t::OPERAND ){
+    explicit Token(std::string value="", token_t type = token_t::OPERAND){
         this->value = value;
         this->type = type;
     }
 
     friend std::ostream & operator<<( std::ostream &os, const Token &t){
-        std::string types[] = { "OPERAND", "OPERATOR" };
+        std::string types[] = { "OPERAND", "OPERATOR", "SCOPE"};
         os << "<" << t.value << "," << types[(int)(t.type)] << ">";
         return os;
     }
