@@ -7,7 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
-#include "../include/token.h"
+#include "../include/parser.h"
 
 using value_t = long int;
 using symbol = char;
@@ -27,6 +27,8 @@ class Bares{
 		~Bares(void);
 
 		//output
+		std::string parser_error_msg(const Parser::ResultType &);
+		//std::string bares_error_msg(const ResultType & result);
 		void write(std::string);
 
 		//general functions
