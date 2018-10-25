@@ -7,6 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include "../include/parser.h"
 
 using value_t = long int;
 using symbol = char;
@@ -28,7 +29,6 @@ class Bares{
 		void set_expressions(std::vector<std::string>);
 
 		//general functions
-		std::string trim(std::string);
 		bool higher_precedence(char, char);
 		std::string infix_to_postfix(std::string);
 

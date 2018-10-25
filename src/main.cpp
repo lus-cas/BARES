@@ -1,4 +1,4 @@
-#include "../include/bares.hpp"
+#include "../include/bares.h"
 
 using namespace std;
 
@@ -7,15 +7,10 @@ int main(int argc, char const *argv[]){
 	//to do: make it work using std::cin and std::cout
 
 	if(argc <= 2){
-		cout << endl << "ERROR: missing file" << endl;
-		cout << endl << "Aborting..." << endl;
+		cout << "\nERROR: missing file\n";
+		cout << "\nAborting..." << endl;
 		exit(-1);
 	}
-	
-	// if(argc <= 1){
-	// 	throw std::runtime_error("No input file");
-	// }
-
 
 	Bares b(argv[1], argv[2]);
 	//cout << b;

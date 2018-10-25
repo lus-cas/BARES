@@ -51,10 +51,10 @@ class Parser{
     public:
         //constructors and destructor
         Parser() = default;
-        Parser( const Parser & ) = delete;
+        Parser(const Parser &) = delete;
         ~Parser() = default;
         
-        Parser & operator=( const Parser & ) = delete; //turn off assignment operator.
+        Parser &operator=(const Parser &) = delete; //turn off assignment operator.
 
         struct ResultType{
             typedef std::ptrdiff_t posistion_t; //column location determination.

@@ -1,9 +1,4 @@
-#include "../include/bares.hpp"
-
-//default contructor
-Bares::Bares(){
-
-}
+#include "../include/bares.h"
 
 //contructor
 Bares::Bares(std::string input_file_path, std::string output_file_path){
@@ -12,16 +7,16 @@ Bares::Bares(std::string input_file_path, std::string output_file_path){
 	
 	//avoids failures to open file
 	if (!(this->input_file.good() && this->input_file.is_open())){
-		std::cout << std::endl << "ERROR: failed to open input file '" << input_file_path << "'" << std::endl;
-		std::cout << std::endl << "Aborting..." << std::endl;
+		std::cout << "\nERROR: failed to open input file '" << input_file_path << "'\n";
+		std::cout << "\nAborting..." << std::endl;
 		exit(-1);
 	}
 
 	this->output_file.open(output_file_path, std::ofstream::out | std::ofstream::app);
 
 	if (!(this->output_file.good() && this->output_file.is_open())){
-		std::cout << std::endl << "ERROR: failed to open output file '" << output_file_path << "'" << std::endl;
-		std::cout << std::endl << "Aborting..." << std::endl;
+		std::cout << "\nERROR: failed to open output file '" << output_file_path << "'\n";
+		std::cout << "\nAborting..." << std::endl;
 		exit(-1);
 	}
 
