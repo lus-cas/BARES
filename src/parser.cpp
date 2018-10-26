@@ -32,47 +32,47 @@ Parser::terminal_symbol_t const Parser::lexer(char c){
 }
 
 //converts the parsing error code into its corresponding message
-std::string Parser::error_msg(const Parser::ResultType & result){
-    std::string error;
+// std::string Parser::error_msg(const Parser::ResultType & result){
+//     std::string error;
 
-    switch (result.type){
-        //1. Integer constant out of range beginning at column (n)!
-        case Parser::ResultType::INTEGER_OUT_OF_RANGE:
-            error = "Integer constant out of range beginning at column (" + std::to_string(result.at_col) + ")!";
-            break;
+//     switch (result.type){
+//         //1. Integer constant out of range beginning at column (n)!
+//         case Parser::ResultType::INTEGER_OUT_OF_RANGE:
+//             error = "Integer constant out of range beginning at column (" + std::to_string(result.at_col) + ")!";
+//             break;
 
-        //2. Missing <term> at column (n)!    
-        case Parser::ResultType::MISSING_TERM:
-            error = "Missing <term> at column (" + std::to_string(result.at_col) + ")!";
-            break;
+//         //2. Missing <term> at column (n)!    
+//         case Parser::ResultType::MISSING_TERM:
+//             error = "Missing <term> at column (" + std::to_string(result.at_col) + ")!";
+//             break;
 
-        //3. Extraneous symbol after valid expression found at column (n)!
-        case Parser::ResultType::EXTRANEOUS_SYMBOL:
-            error = "Extraneous symbol after valid expression found at column (" + std::to_string(result.at_col) + ")!";
-            break;
+//         //3. Extraneous symbol after valid expression found at column (n)!
+//         case Parser::ResultType::EXTRANEOUS_SYMBOL:
+//             error = "Extraneous symbol after valid expression found at column (" + std::to_string(result.at_col) + ")!";
+//             break;
 
-        //4. Ill formed integer at column (n)!
-        case Parser::ResultType::ILL_FORMED_INTEGER:
-            error = "Ill formed integer at column (" + std::to_string(result.at_col) + ")!";
-            break;
+//         //4. Ill formed integer at column (n)!
+//         case Parser::ResultType::ILL_FORMED_INTEGER:
+//             error = "Ill formed integer at column (" + std::to_string(result.at_col) + ")!";
+//             break;
 
-        //5. Missing closing ”)” at column (n)!    
-        case Parser::ResultType::MISSING_CLOSING_SCOPE:
-            error = "Missing closing \")\" at column (" + std::to_string(result.at_col) + ")!";
-            break;
+//         //5. Missing closing ”)” at column (n)!    
+//         case Parser::ResultType::MISSING_CLOSING_SCOPE:
+//             error = "Missing closing \")\" at column (" + std::to_string(result.at_col) + ")!";
+//             break;
 
-        //6. Unexpected end of expression at column (n)!  
-        case Parser::ResultType::UNEXPECTED_END_OF_EXPRESSION:
-            error = "Unexpected end of expression at column (" + std::to_string(result.at_col) + ")!";
-            break;
+//         //6. Unexpected end of expression at column (n)!  
+//         case Parser::ResultType::UNEXPECTED_END_OF_EXPRESSION:
+//             error = "Unexpected end of expression at column (" + std::to_string(result.at_col) + ")!";
+//             break;
     
-        default:
-            error = "Unhandled error found!";
-            break;
-    }
+//         default:
+//             error = "Unhandled error found!";
+//             break;
+//     }
 
-    return error;
-}
+//     return error;
+// }
 
 //advances current_symbol iterator to the next valid symbol for processing
 void Parser::next_symbol(){
@@ -106,7 +106,7 @@ bool const Parser::end_input(void){
 bool Parser::expression(){
 	term();
     
-    while(this->result.type == ResultType::OK){
+    while(this->result.type == Result::OK){
         skip_bs();
 
         //parses the operator
@@ -131,12 +131,12 @@ bool Parser::expression(){
         }else break;
 
         //verifies if there's a valid term after the operator
-        if(!term() && this->result.type == ResultType::ILL_FORMED_INTEGER){
-            this->result.type = ResultType::MISSING_TERM;
+        if(!term() && this->result.type == Result::ILL_FORMED_INTEGER){
+            this->result.type = Result::MISSING_TERM;
         }
     }
 
-    return this->result.type == ResultType::OK;
+    return this->result.type == Result::OK;
 }
 
 //<term> := "(", <expression>, ")" | <integer>;
@@ -156,13 +156,13 @@ bool Parser::term(){
             token = stoll(token_string);
 
         }catch(const std::invalid_argument & e){
-            this->result.type = ResultType::ILL_FORMED_INTEGER;
+            this->result.type = Result::ILL_FORMED_INTEGER;
             this->result.at_col = std::distance(this->expr.begin(), token_begin); 
 
             return false;
 
         }catch( const std::out_of_range & e ){
-            this->result.type = ResultType::INTEGER_OUT_OF_RANGE;
+            this->result.type = Result::INTEGER_OUT_OF_RANGE;
             this->result.at_col = std::distance(this->expr.begin(), token_begin); 
 
             return false;
@@ -171,7 +171,7 @@ bool Parser::term(){
         
         //verifies if the token value is in the required range
         if(token < std::numeric_limits<required_t>::min() || token > std::numeric_limits<required_t>::max()){
-            this->result.type = ResultType::INTEGER_OUT_OF_RANGE;
+            this->result.type = Result::INTEGER_OUT_OF_RANGE;
             this->result.at_col = std::distance(this->expr.begin(), token_begin);
 
         }else{
@@ -187,17 +187,17 @@ bool Parser::term(){
 			this->tokens.emplace_back(Token( ")", Token::token_t::SCOPE));
 
 		}else{
-			this->result.type = ResultType::MISSING_CLOSING_SCOPE;
+			this->result.type = Result::MISSING_CLOSING_SCOPE;
 			this->result.at_col = std::distance(this->expr.begin(), current_symbol);
 
 		}
 
 	}else{
-		this->result.type = ResultType::ILL_FORMED_INTEGER;
+		this->result.type = Result::ILL_FORMED_INTEGER;
 		this->result.at_col = std::distance(this->expr.begin(), this->current_symbol);
 	}
 
-	return this->result.type == ResultType::OK;
+	return this->result.type == Result::OK;
 }
 
 //<integer> := 0 | [ "-" ], <natural_number>;
@@ -231,10 +231,10 @@ bool Parser::digit(){
 }
 
 //Parser main function
-Parser::ResultType Parser::parse(std::string expr){
+Result Parser::parse(std::string expr){
 	this->expr = expr;
     this->current_symbol = this->expr.begin();
-    this->result = ResultType(ResultType::OK);
+    this->result = Result(Result::OK);
 
     //std::cout << *current_symbol << std::endl;
 
@@ -245,13 +245,13 @@ Parser::ResultType Parser::parse(std::string expr){
     //std::cout << *current_symbol << std::endl;
 
     if(end_input()){
-        this->result =  ResultType(ResultType::UNEXPECTED_END_OF_EXPRESSION, std::distance(this->expr.begin(), this->current_symbol));
+        this->result =  Result(Result::UNEXPECTED_END_OF_EXPRESSION, std::distance(this->expr.begin(), this->current_symbol));
     
     }else{
         if(expression()){
             skip_bs();
             if(!end_input()){
-                this->result.type = ResultType::EXTRANEOUS_SYMBOL;
+                this->result.type = Result::EXTRANEOUS_SYMBOL;
                 this->result.at_col = std::distance(this->expr.begin(), this->current_symbol);
             }
         }

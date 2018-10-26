@@ -22,8 +22,7 @@ bool Evaluator::is_right_association(symbol s){
 }
 
 short Evaluator::get_precedence(symbol s){
-	char c = s[0];
-	switch(c){
+	switch(s[0]){
         case '^' : return 3;
         case '*' :
         case '/' :
@@ -57,11 +56,20 @@ bool Evaluator::higher_precedence(symbol op1, symbol op2){
 value_t Evaluator::pow(value_t b, value_t e){
 	if(e < 1) return 1;
 	return b * pow(b, e-1);
-
 }
 
-value_t Evaluator::execute_operator(value_t, value_t, symbol){
-
+value_t Evaluator::execute_operator(value_t x, value_t y, symbol o){
+	switch (o[0]){
+		case '^':	return pow(x, y);
+		case '*':	return x * y;
+		case '/':	if(y == 0) //Division by zero!
+					return x / y;
+		case '%':	if(y == 0) //Division by zero!
+					return x % y;
+		case '+': 	return x + y;
+		case '-': 	return x - y;
+		default	: 	assert (false); return -1;
+	}
 }
 
 //converts an infix expression (as Token list) into a postfix expression (as string list)

@@ -9,8 +9,9 @@
 #include <stack> 
 #include <string>
 #include <cassert>
-#include <stdexcept> // std::runtime_error
-#include "../include/token.h"
+#include <stdexcept>// std::runtime_error
+#include "token.h"  // Token struct
+#include "result.h" // Result struct
 
 using value_t = long int;
 using symbol = std::string;

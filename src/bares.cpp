@@ -24,8 +24,8 @@ int main(int argc, char const *argv[]){
         for(auto expression : expressions){
             auto result = parser.parse(expression);
 
-            if(result.type != Parser::ResultType::OK){
-                std::cout << parser.error_msg(result) << std::endl;
+            if(result.type != Result::OK){
+                std::cout << result.error_msg(result) << std::endl;
 
             }else{
                 //postfix = evaluator.infix_to_postfix(parser.get_tokens());
@@ -44,8 +44,8 @@ int main(int argc, char const *argv[]){
             expression = file.read_line();
             auto result = parser.parse(expression);
 
-            if(result.type != Parser::ResultType::OK){
-                file.write_line(parser.error_msg(result));
+            if(result.type != Result::OK){
+                file.write_line(result.error_msg(result));
 
             }else{
                 postfix = evaluator.infix_to_postfix(parser.get_tokens());
