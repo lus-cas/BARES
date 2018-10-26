@@ -1,62 +1,38 @@
-#include "../include/bares.h"
+#include <iomanip>
+#include "../include/parser.h"
+#include "../include/evaluator.h"
+#include "../include/file.h"
 
-//getters and setters
-std::vector<Token> const Bares::get_tokens(void){
-	return this->tokens;
-}
+int main(int argc, char const *argv[]){
 
-void Bares::set_tokens(std::vector<Token> tokens){
-	this->tokens = tokens;
-}
-
-//general functions
-
-bool Bares::is_operator(symbol s){
-	return std::string("*^/%+-").find(s) != std::string::npos;
-}
-
-bool Bares::is_operand(symbol s){
-	return s >= '0' && s <= '9';
-}
-
-bool Bares::is_opening_scope(symbol s){
-	return s == '(';
-}
-
-bool Bares::is_closing_scope(symbol s){
-	return s == ')';
-}
-
-bool Bares::is_right_association(symbol s){
-	return s == '^';
-}
-
-short Bares::get_precedence(symbol s){
-	switch(s){
-        case '^' : return 3;
-        case '*' :
-        case '/' :
-        case '%' : return 2;
-        case '+' :
-        case '-' : return 1;
-        case '(' : return 0;
-        default  : assert( false );  return -1;
+    if(argc <= 2){
+        std::cout << "\nERROR: missing file\n";
+        std::cout << "\nAborting...\n" << std::endl;
+        exit(-1);
     }
-}
 
-bool Bares::higher_precedence(symbol op1, symbol op2){
-	int precedence_op1 = get_precedence(op1);
-	int precedence_op2 = get_precedence(op2);
+    File file(argv[1], argv[2]);
+    Parser parser;
+    Evaluator evaluator;
 
-    if(precedence_op1 > precedence_op2){
-    	return true;
+    std::string expression;
+    std::vector<std::string> postfix;
 
-	}else if(precedence_op1 < precedence_op2){
-		return false;
+    while(! file.is_eof()){
+        expression = file.read_line();
+        auto result = parser.parse(expression);
 
-	}else{
-    	if(is_right_association(op1)) return false;
-    	return true;
-    	
+        if(result.type != Parser::ResultType::OK){
+            file.write_line(parser.error_msg(result));
+
+        }else{
+            postfix = evaluator.infix_to_postfix(parser.get_tokens());
+            //postfix = parser.get_tokens();
+        } 
+
     }
+
+
+
+    return EXIT_SUCCESS;
 }

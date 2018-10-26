@@ -1,18 +1,18 @@
 CPP = g++
 CPPFLAGS = -Wall -std=c++11
 BIN = bin/bares
-OBJ = main.o bares.o parser.o file.o
+OBJ = bares.o evaluator.o parser.o file.o
 
 build: $(OBJ)
 	$(CPP) $(OBJ) -o $(BIN)
 	rm -rf build/*.o
 	mv *.o build/
 
-main.o:
-	$(CPP) $(CPPFLAGS) -c src/main.cpp
-
-bares.o: include/bares.h
+bares.o:
 	$(CPP) $(CPPFLAGS) -c src/bares.cpp
+
+evaluator.o: include/evaluator.h
+	$(CPP) $(CPPFLAGS) -c src/evaluator.cpp
 
 parser.o: include/parser.h
 	$(CPP) $(CPPFLAGS) -c src/parser.cpp
