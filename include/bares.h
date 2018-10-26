@@ -4,9 +4,12 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
 #include <vector>
 #include <algorithm>
+#include <stack> 
+#include <string>
+#include <cassert>
+#include <stdexcept> // std::runtime_error
 #include "../include/parser.h"
 
 using value_t = long int;
@@ -29,8 +32,8 @@ class Bares{
 		bool is_opening_scope(symbol);
 		bool is_closing_scope(symbol);
 		bool is_right_association(symbol);
-		bool higher_precedence(char, char);
 		short get_precedence(symbol);
+		bool higher_precedence(symbol, symbol);
 		std::string infix_to_postfix(std::string);
 		value_t evaluate_postfix(std::string);
 
