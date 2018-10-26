@@ -1,3 +1,4 @@
+
 #ifndef BARES_H
 #define BARES_H
 
@@ -19,7 +20,8 @@ class Bares{
 	public:
 		//constructors and destructor
 		Bares(void) = default;
-		~Bares(void);
+		Bares(const Bares &) = delete;
+		~Bares(void) = default;
 
 		//general functions
 		bool is_operator(symbol);

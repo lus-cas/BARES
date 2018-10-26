@@ -27,7 +27,7 @@ class Parser{
         Parser(void) = default;
         Parser(const Parser &) = delete;
         ~Parser(void) = default;
-        
+
         Parser &operator=(const Parser &) = delete; //turn off assignment operator.
 
         struct ResultType{
@@ -57,6 +57,7 @@ class Parser{
         typedef short int required_t; //it's required to use the short int type
         typedef long long int input_t; //in order to read any number input, the integer input type must be larger than the requided one
         
+        std::string error_msg(const ResultType &);
         ResultType parse(std::string);
 
         //getter
@@ -88,7 +89,6 @@ class Parser{
 
         //support methods
         terminal_symbol_t const lexer(char);
-        std::string error_msg(const Parser::ResultType &);
         void next_symbol(void);
         bool accept(terminal_symbol_t);
         void skip_bs(void);

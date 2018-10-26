@@ -27,19 +27,18 @@ File::~File(){
 	if (this->output_file.is_open()) this->output_file.close();
 }
 
+//support methods
+bool File::is_eof(){
+	return this->input_file.good()  == false || this->input_file.is_open() == false;
+}
+
+//input and output methods
 std::string File::read_line(){
 	std::string line;
 
 	std::getline(this->input_file, line);
 
 	return line;
-
-	// if(std::getline(this->input_file, line) && ! this->input_file.fail()){
-	// 	std::cout << argv[1] << std::endl;
-	// 	return line;
-	// }else{
-	// 	return "\0";
-	// }
 }
 
 void File::write_line(std::string output){

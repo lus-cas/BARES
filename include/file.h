@@ -17,6 +17,9 @@ class File{
 		File(std::string, std::string);
         ~File(void);
 
+        //support methods
+        bool is_eof(void);
+
 		//input and output methodos
 		std::string read_line(void);
 		void write_line(std::string);
