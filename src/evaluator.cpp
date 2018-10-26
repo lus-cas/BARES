@@ -60,33 +60,32 @@ std::vector<symbol> Evaluator::infix_to_postfix(std::vector<Token> infix){
 	for(auto token : infix){
 		if(is_operand(token)){
 			postfix.emplace_back(token.value);
+
+		}else if(is_opening_scope(token.value)){
+			stack.push(token.value);
+
+		}else if(is_closing_scope(token.value)){
+			while(!is_opening_scope(stack.top())){
+				postfix.emplace_back(stack.top());
+				stack.pop();
+			}
+			stack.pop();
+
+		}else if(is_operator(token)){
+			while(!stack.empty() && higher_precedence(stack.top(), token.value)){
+				postfix.emplace_back(stack.top());
+				stack.pop();
+			}
+			stack.push(token.value);
+
+		}else{
 		}
-
-		// }else if(is_opening_scope(token.value)){
-		// 	stack.push(token.value);
-
-		// }else if(is_closing_scope(token.value)){
-		// 	while(!is_closing_scope(stack.top())){
-		// 		postfix.emplace_back(stack.top());
-		// 		stack.pop();
-		// 	}
-		// 	stack.pop();
-
-		// }else if(is_operator(token)){
-		// 	while(!stack.empty() && higher_precedence(stack.top(), token.value)){
-		// 		postfix.emplace_back(stack.top());
-		// 		stack.pop();
-		// 	}
-		// 	stack.push(token.value);
-
-		// }else{
-		// }
 	}
 
-	// while(not stack.empty()){
-	// 	postfix.emplace_back(stack.top());
-	// 	stack.pop();
-	// }
+	while(not stack.empty()){
+		postfix.emplace_back(stack.top());
+		stack.pop();
+	}
 
 	return postfix;
 }
