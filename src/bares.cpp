@@ -6,10 +6,10 @@
 int main(int argc, char const *argv[]){  
 
     Parser parser;
-    //Evaluator evaluator;
+    Evaluator evaluator;
 
     std::string expression;
-    std::vector<std::string> postfix;
+    std::vector<symbol> postfix;
 
     if(argc <= 2){
 
@@ -46,8 +46,11 @@ int main(int argc, char const *argv[]){
                 file.write_line(parser.error_msg(result));
 
             }else{
-                //postfix = evaluator.infix_to_postfix(parser.get_tokens());
-                //postfix = parser.get_tokens();
+                postfix = evaluator.infix_to_postfix(parser.get_tokens());
+                for(auto t : postfix){
+                    std::cout << t << " ";
+                }
+                std::cout << std::endl;
             } 
 
         }
