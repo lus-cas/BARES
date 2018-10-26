@@ -2,7 +2,6 @@
 #define BARES_H
 
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -14,22 +13,13 @@ using symbol = char;
 
 class Bares{
 	private:
-		std::ifstream input_file;
-		std::ofstream output_file;
-		std::vector<std::string> expressions;
 		std::vector<Token> tokens;
 		value_t ctoi(char);
 
 	public:
 		//constructors and destructor
 		Bares(void) = default;
-		Bares(std::string, std::string);
 		~Bares(void);
-
-		//output
-		std::string parser_error_msg(const Parser::ResultType &);
-		//std::string bares_error_msg(const ResultType & result);
-		void write(std::string);
 
 		//general functions
 		bool is_operator(symbol);
@@ -47,8 +37,6 @@ class Bares{
 		value_t execute_operator(value_t, value_t, symbol);
 
 		//getters and setters
-		std::vector<std::string> get_expressions(void);
-		void set_expressions(std::vector<std::string>);
 		std::vector<Token> const get_tokens(void);
 		void set_tokens(std::vector<Token>);
 

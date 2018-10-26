@@ -1,5 +1,6 @@
 #ifndef PARSER_H
 #define PARSER_H
+
 #include <iostream> // cout, cin
 #include <iterator> // std::distance()
 #include <vector>   // std::vector
@@ -23,9 +24,9 @@ used EBNF grammar:
 class Parser{
     public:
         //constructors and destructor
-        Parser() = default;
+        Parser(void) = default;
         Parser(const Parser &) = delete;
-        ~Parser() = default;
+        ~Parser(void) = default;
         
         Parser &operator=(const Parser &) = delete; //turn off assignment operator.
 
@@ -87,6 +88,7 @@ class Parser{
 
         //support methods
         terminal_symbol_t const lexer(char);
+        std::string error_msg(const Parser::ResultType &);
         void next_symbol(void);
         bool accept(terminal_symbol_t);
         void skip_bs(void);
