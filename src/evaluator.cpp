@@ -53,9 +53,21 @@ bool Evaluator::higher_precedence(symbol op1, symbol op2){
 }
 
 //main functions
+
+value_t Evaluator::pow(value_t b, value_t e){
+	if(e < 1) return 1;
+	return b * pow(b, e-1);
+
+}
+
+value_t Evaluator::execute_operator(value_t, value_t, symbol){
+
+}
+
+//converts an infix expression (as Token list) into a postfix expression (as string list)
 std::vector<symbol> Evaluator::infix_to_postfix(std::vector<Token> infix){
-	std::vector<symbol> postfix; //output
-	std::stack<symbol> stack; //auxiliar stack to stores non-operand tokens
+	std::vector<symbol> postfix;
+	std::stack<symbol> stack;
 
 	for(auto token : infix){
 		if(is_operand(token)){

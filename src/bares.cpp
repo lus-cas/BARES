@@ -38,6 +38,8 @@ int main(int argc, char const *argv[]){
 
         File file(argv[1], argv[2]);
 
+        std::cout << "pow(2, 3) = " << std::to_string(evaluator.pow(2, 3)) << std::endl;
+
         while(! file.is_eof()){
             expression = file.read_line();
             auto result = parser.parse(expression);
