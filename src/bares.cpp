@@ -9,7 +9,7 @@ int main(int argc, char const *argv[]){
     Evaluator evaluator;
 
     std::string expression;
-    std::vector<symbol> postfix;
+    std::vector<Token> postfix;
 
     if(argc <= 2){
 
@@ -25,7 +25,7 @@ int main(int argc, char const *argv[]){
             auto result = parser.parse(expression);
 
             if(result.type != Result::OK){
-                std::cout << result.error_msg(result) << std::endl;
+                std::cout << result.error_msg() << std::endl;
 
             }else{
                 //postfix = evaluator.infix_to_postfix(parser.get_tokens());
@@ -38,21 +38,29 @@ int main(int argc, char const *argv[]){
 
         File file(argv[1], argv[2]);
 
-        std::cout << "pow(2, 3) = " << std::to_string(evaluator.pow(2, 3)) << std::endl;
-
         while(! file.is_eof()){
             expression = file.read_line();
-            auto result = parser.parse(expression);
+            auto parse_result = parser.parse(expression);
 
-            if(result.type != Result::OK){
-                file.write_line(result.error_msg(result));
+            //verifies if a parsing error ocurred
+            if(parse_result.type != Result::OK){
+                file.write_line(parse_result.error_msg());
 
             }else{
+
                 postfix = evaluator.infix_to_postfix(parser.get_tokens());
-                for(auto t : postfix){
-                    std::cout << t << " ";
+                auto final_result = evaluator.evaluate_postfix(postfix);
+                auto evaluate_result = evaluator.get_result();
+
+                //verifies if a evaluating error ocurred
+                if(evaluate_result.type != Result::OK){
+                     file.write_line(evaluate_result.error_msg());
+
+                }else{
+                    file.write_line(std::to_string(final_result));
+
                 }
-                std::cout << std::endl;
+                
             } 
 
         }

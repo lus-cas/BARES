@@ -31,34 +31,9 @@ class Parser{
 
         Parser &operator=(const Parser &) = delete; //turn off assignment operator.
 
-        // struct ResultType{
-        //     typedef std::ptrdiff_t posistion_t; //column location determination.
-
-        //     //possible syntax errors.
-        //     enum code_t{
-        //             OK, //expression successfuly parsed.
-        //             UNEXPECTED_END_OF_EXPRESSION,
-        //             ILL_FORMED_INTEGER,
-        //             MISSING_TERM,
-        //             EXTRANEOUS_SYMBOL,
-        //             INTEGER_OUT_OF_RANGE,
-        //             MISSING_CLOSING_SCOPE
-        //     };
-
-        //     code_t type;
-        //     posistion_t at_col;
-
-        //     //default constructor
-        //     explicit ResultType(code_t type = OK, posistion_t at_col = 0){
-        //         this->type = type;
-        //         this->at_col = at_col;
-        //     }
-        // };
-
         typedef short int required_t; //it's required to use the short int type
         typedef long long int input_t; //in order to read any number input, the integer input type must be larger than the requided one
         
-        //std::string error_msg(const ResultType &);
         Result parse(std::string);
 
         //getter

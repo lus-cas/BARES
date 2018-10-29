@@ -29,38 +29,38 @@ struct Result{
         this->at_col = at_col;
     }
 
-    std::string error_msg(const Result &result){
+    std::string error_msg(){
         std::string error;
 
-        switch (result.type){
+        switch (this->type){
             //1. Integer constant out of range beginning at column (n)!
             case Result::INTEGER_OUT_OF_RANGE:
-                error = "Integer constant out of range beginning at column (" + std::to_string(result.at_col) + ")!";
+                error = "Integer constant out of range beginning at column (" + std::to_string(this->at_col) + ")!";
                 break;
 
             //2. Missing <term> at column (n)!    
             case Result::MISSING_TERM:
-                error = "Missing <term> at column (" + std::to_string(result.at_col) + ")!";
+                error = "Missing <term> at column (" + std::to_string(this->at_col) + ")!";
                 break;
 
             //3. Extraneous symbol after valid expression found at column (n)!
             case Result::EXTRANEOUS_SYMBOL:
-                error = "Extraneous symbol after valid expression found at column (" + std::to_string(result.at_col) + ")!";
+                error = "Extraneous symbol after valid expression found at column (" + std::to_string(this->at_col) + ")!";
                 break;
 
             //4. Ill formed integer at column (n)!
             case Result::ILL_FORMED_INTEGER:
-                error = "Ill formed integer at column (" + std::to_string(result.at_col) + ")!";
+                error = "Ill formed integer at column (" + std::to_string(this->at_col) + ")!";
                 break;
 
             //5. Missing closing ”)” at column (n)!    
             case Result::MISSING_CLOSING_SCOPE:
-                error = "Missing closing \")\" at column (" + std::to_string(result.at_col) + ")!";
+                error = "Missing closing \")\" at column (" + std::to_string(this->at_col) + ")!";
                 break;
 
             //6. Unexpected end of expression at column (n)!  
             case Result::UNEXPECTED_END_OF_EXPRESSION:
-                error = "Unexpected end of expression at column (" + std::to_string(result.at_col) + ")!";
+                error = "Unexpected end of expression at column (" + std::to_string(this->at_col) + ")!";
                 break;
 
             //7. Division by zero!

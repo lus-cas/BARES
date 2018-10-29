@@ -18,13 +18,17 @@ using symbol = std::string;
 
 class Evaluator{
 	private:
-		value_t ctoi(char);
+		Result result;
+		//value_t ctoi(symbol);
 
 	public:
 		//constructors and destructor
 		Evaluator(void) = default;
 		Evaluator(const Evaluator &) = delete;
 		~Evaluator(void) = default;
+
+		//result getter
+		Result get_result(void);
 
 		//support functions
 		bool is_operator(Token);
@@ -36,8 +40,8 @@ class Evaluator{
 		bool higher_precedence(symbol, symbol);
 
 		//main functions
-		std::vector<symbol> infix_to_postfix(std::vector<Token>);
-		value_t evaluate_postfix(std::string);
+		std::vector<Token> infix_to_postfix(std::vector<Token>);
+		value_t evaluate_postfix(std::vector<Token>);
 
 		//math function
 		value_t pow(value_t, value_t);
