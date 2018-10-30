@@ -11,7 +11,7 @@ int main(int argc, char const *argv[]){
     std::string expression;
     std::vector<Token> postfix;
 
-    if(argc <= 2){
+    if(argc == 1){
 
         std::vector<std::string> expressions;
 
@@ -45,7 +45,7 @@ int main(int argc, char const *argv[]){
             
         }
 
-    }else{
+    }else if(argc == 3){
 
         File file(argv[1], argv[2]);
 
@@ -75,6 +75,11 @@ int main(int argc, char const *argv[]){
 
         }
 
+    }else{
+        std::cout << "\nERROR: no matching running type for the reported parameters\n";
+        std::cout << "\nTry: $ ./bin/bares\n";
+        std::cout << "\nOr: $ ./bin/bares <input_file> [output_file]\n";
+        std::cout << "\nAborting...\n" << std::endl;
     }
 
     return EXIT_SUCCESS;

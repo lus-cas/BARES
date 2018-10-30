@@ -5,11 +5,6 @@ Result Evaluator::get_result(){
 	return this->result;
 }
 
-// support functions
-// value_t Evaluator::ctoi(symbol s){
-// 	return std::stoi(s);
-// }
-
 bool Evaluator::is_operator(Token t){
 	return t.type == Token::token_t::OPERATOR;
 }
@@ -60,13 +55,6 @@ bool Evaluator::higher_precedence(symbol op1, symbol op2){
     }
 }
 
-//main functions
-
-value_t Evaluator::pow(value_t b, value_t e){
-	if(e < 1) return 1;
-	return b * pow(b, e-1);
-}
-
 value_t Evaluator::execute_operator(value_t x, value_t y, symbol o){
 	switch (o[0]){
 		case '^':	return pow(x, y);
@@ -86,6 +74,8 @@ value_t Evaluator::execute_operator(value_t x, value_t y, symbol o){
 		default	: 	assert (false); return -1;
 	}
 }
+
+//main functions
 
 //converts an infix expression (as Token list) into a postfix expression (as string list)
 std::vector<Token> Evaluator::infix_to_postfix(std::vector<Token> infix){
@@ -142,16 +132,17 @@ value_t Evaluator::evaluate_postfix(std::vector<Token> postfix){
 
 			auto result = execute_operator(x, y, t.value);
 
-			//std::cout << result << std::endl;
-
 			if(result < -32768 || result > 32767){
 				this->result.type = Result::NUMERIC_OVERFLOW;
 				stack.push(-1);	
 			}else{
 				stack.push(result);	
 			}
+			
+		}else{
+			assert( false );
 		}
 	}
 
-	return stack.top(); // o resultado deve estar no topo da pilha.
+	return stack.top();
 }

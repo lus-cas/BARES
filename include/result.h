@@ -31,6 +31,7 @@ struct Result{
 
     std::string error_msg(){
         std::string error;
+        this->at_col+=1;
 
         switch (this->type){
             //1. Integer constant out of range beginning at column (n)!

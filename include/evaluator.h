@@ -2,23 +2,30 @@
 #ifndef EVALUATOR_H
 #define EVALUATOR_H
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <stack> 
-#include <string>
-#include <cassert>
-#include "token.h"  // Token struct
-#include "result.h" // Result struct
+#include <iostream>		//std::cin and std::cout
+#include <string>		//std::string, std::to_string and std::stoi
+#include <vector>		//std::vector
+#include <algorithm>	//std::distance
+#include <cmath>		//pow
+#include <stack> 		//std::stack
+#include <cassert>		//assert
+#include "token.h"		//Token struct
+#include "result.h"		//Result struct
 
-using value_t = long int;
-using symbol = std::string;
+/*!
+ * Converts an arithmetic expression in infix notation into postfix
+ * representation. After the convertion is successfyly done, the
+ * program evaluates the expression based on stacks and queues.
+ */
+
+//=== alias
+using value_t = long int;	//!< type to operate on.
+using symbol = std::string;	//!< symbol in this implementation is a string object.
 
 class Evaluator{
 	private:
-		Result result;
-		//value_t ctoi(symbol);
+		 //==== private members.
+		Result result; //!< the evaluating result for the current expression
 
 	public:
 		//constructors and destructor
@@ -43,7 +50,6 @@ class Evaluator{
 		value_t evaluate_postfix(std::vector<Token>);
 
 		//math function
-		value_t pow(value_t, value_t);
 		value_t execute_operator(value_t, value_t, symbol);
 
 };

@@ -19,7 +19,6 @@ class File{
 
         //support methods
         bool is_eof(void);
-        void clean_output
 
 		//input and output methodos
 		std::string read_line(void);
