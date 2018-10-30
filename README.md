@@ -43,7 +43,7 @@ This **EBNF** grammar is defined by the statements:
 Syntax and run-time errors are both supported by the program.
 
 1. **Integer constant out of range beginning at column (n)!**
-2. **Missing <term> at column (n)!**
+2. **Missing term at column (n)!**
 3. **Extraneous symbol after valid expression found at column (n)!**
 4. **Ill formed integer at column (n)!**
 5. **Missing closing ”)” at column (n)!**
