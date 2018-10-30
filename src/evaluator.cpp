@@ -1,6 +1,5 @@
 #include "../include/evaluator.h"
 
-//result getter
 Result Evaluator::get_result(){
 	return this->result;
 }
@@ -78,24 +77,24 @@ value_t Evaluator::execute_operator(value_t x, value_t y, symbol o){
 //main functions
 
 std::vector<Token> Evaluator::infix_to_postfix(std::vector<Token> infix){
-	std::vector<Token> postfix;
-	std::stack<Token> stack;
+	std::vector<Token> postfix; // output Token vector
+	std::stack<Token> stack;	// auxiliar stack
 
 	for(auto token : infix){
-		if(is_operand(token)){
+		if(is_operand(token)){						// if it's an operand, goes straight to output vector
 			postfix.emplace_back(token);
 
-		}else if(is_opening_scope(token.value)){
+		}else if(is_opening_scope(token.value)){	// if it's an opening scope, goes to the auxiliar stack
 			stack.push(token);
 
-		}else if(is_closing_scope(token.value)){
+		}else if(is_closing_scope(token.value)){	// if it's a closing scope, pushs the expressions terms to the output
 			while(!is_opening_scope(stack.top().value)){
 				postfix.emplace_back(stack.top());
 				stack.pop();
 			}
 			stack.pop();
 
-		}else if(is_operator(token)){
+		}else if(is_operator(token)){				// if it's an operator, replace it
 			while(!stack.empty() && higher_precedence(stack.top().value, token.value)){
 				postfix.emplace_back(stack.top());
 				stack.pop();
@@ -115,8 +114,8 @@ std::vector<Token> Evaluator::infix_to_postfix(std::vector<Token> infix){
 }
 
 value_t Evaluator::evaluate_postfix(std::vector<Token> postfix){
-	this->result = Result(Result::OK);
-	std::stack<value_t> stack;
+	this->result = Result(Result::OK);	// defines the Result result as OK by default
+	std::stack<value_t> stack;			// stores the results of the operations
 
 	for(auto t : postfix){
 		if(is_operand(t)){

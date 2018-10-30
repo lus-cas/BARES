@@ -16,7 +16,7 @@
  * Converts an arithmetic expression in infix notation into postfix
  * representation. After the convertion is successfyly done, the
  * program evaluates the expression based on stacks and queues
- */
+*/
 
 //=== alias
 using value_t = long int;	//!< type to operate on
@@ -24,7 +24,7 @@ using symbol = std::string;	//!< symbol in this implementation is a string objec
 
 class Evaluator{
 	private:
-		 //==== private members
+		//==== private members
 		Result result; //!< the evaluating result for the current expression
 
 	public:

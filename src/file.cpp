@@ -2,7 +2,6 @@
 
 //constructor
 File::File(std::string input_file_path, std::string output_file_path){
-	//input file stream variable to load the arithmetic expressions file
 	this->input_file.open(input_file_path);
 	
 	//avoids failures to open file
