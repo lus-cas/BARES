@@ -49,7 +49,7 @@ int main(int argc, char const *argv[]){
 
         File file(argv[1], argv[2]);
 
-        while(! file.is_eof()){
+        while(!file.is_eof()){
             expression = file.read_line();
             auto parse_result = parser.parse(expression);
 
@@ -58,7 +58,6 @@ int main(int argc, char const *argv[]){
                 file.write_line(parse_result.error_msg());
 
             }else{
-
                 postfix = evaluator.infix_to_postfix(parser.get_tokens());
                 auto final_result = evaluator.evaluate_postfix(postfix);
                 auto evaluate_result = evaluator.get_result();
