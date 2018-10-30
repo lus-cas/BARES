@@ -77,7 +77,6 @@ value_t Evaluator::execute_operator(value_t x, value_t y, symbol o){
 
 //main functions
 
-//converts an infix expression (as Token list) into a postfix expression (as string list)
 std::vector<Token> Evaluator::infix_to_postfix(std::vector<Token> infix){
 	std::vector<Token> postfix;
 	std::stack<Token> stack;
