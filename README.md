@@ -1,6 +1,6 @@
 # Introduction
 
-This is a **BARES (Basic ARithmetic Expression Evaluator based on Stacks)** programming project, which includes a **recursive descending parser** for an **EBNF (Extended Backus-Naur Form)** grammar.
+This is a **BARES (Basic ARithmetic Expression Evaluator based on Stacks)** programming project, that includes a recursive descending parser for an **EBNF (Extended Backus-Naur Form)** grammar.
 
 # Compile and Run
 
@@ -19,16 +19,16 @@ By using std::cin (input) and std::cout (output):
 The EBNF grammar used in this project represents arithmetic expressions that supports scope definition and the following operations with integers (-32768 to 32767):
 
 <ul>
-	<li>Addition (+);</li>
-	<li>Subtraction (-);</li>
-	<li>Multiplication (\*);</li>
-	<li>Division (/);</li>
-	<li>Power (^); and</li>
-	<li>Module (%).</li>
+	<li>Addition (+)</li>
+	<li>Subtraction (-)</li>
+	<li>Multiplication (*)</li>
+	<li>Division (/)</li>
+	<li>Power (^)</li>
+	<li>Module (%)</li>
 </ul>
 
 
-The **EBNF** grammar follows these statements: 
+This **EBNF** grammar is defined by the statements: 
 
     <expression>       :=   <term>, { ( "+" | "-" | "*" | "/" | "%" | "^" ), <term> };
     <term>             :=   "(", <expression>, ")" | <integer>;
