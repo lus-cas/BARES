@@ -142,7 +142,9 @@ value_t Evaluator::evaluate_postfix(std::vector<Token> postfix){
 
 			auto result = execute_operator(x, y, t.value);
 
-			if(result < -32.768 || result > 32.767){
+			//std::cout << result << std::endl;
+
+			if(result < -32768 || result > 32767){
 				this->result.type = Result::NUMERIC_OVERFLOW;
 				stack.push(-1);	
 			}else{

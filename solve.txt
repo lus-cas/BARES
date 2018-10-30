@@ -1,12 +1,13 @@
 -1
 0
+Division by zero!
 Extraneous symbol after valid expression found at column (5)!
 5
 Extraneous symbol after valid expression found at column (5)!
 10
 Extraneous symbol after valid expression found at column (19)!
 Integer constant out of range beginning at column (8)!
-Numeric overflow error!
+-32761
 Integer constant out of range beginning at column (4)!
 15
 -14

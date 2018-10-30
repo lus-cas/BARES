@@ -22,14 +22,25 @@ int main(int argc, char const *argv[]){
         std::cout << std::endl;
 
         for(auto expression : expressions){
-            auto result = parser.parse(expression);
+            auto parser_result = parser.parse(expression);
 
-            if(result.type != Result::OK){
-                std::cout << result.error_msg() << std::endl;
+            //verifies if a parsing error ocurred
+            if(parser_result.type != Result::OK){
+                std::cout << parser_result.error_msg() << std::endl;
 
             }else{
-                //postfix = evaluator.infix_to_postfix(parser.get_tokens());
-                //postfix = parser.get_tokens();
+                postfix = evaluator.infix_to_postfix(parser.get_tokens());
+                auto final_result = evaluator.evaluate_postfix(postfix);
+                auto evaluate_result = evaluator.get_result();
+
+                //verifies if a evaluating error ocurred
+                if(evaluate_result.type != Result::OK){
+                    std::cout << evaluate_result.error_msg() << std::endl;
+
+                }else{
+                    std::cout << final_result << std::endl;
+
+                }
             } 
             
         }
