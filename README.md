@@ -51,6 +51,13 @@ Syntax and run-time errors are both supported by the program.
 7. **Division by zero!**
 8. **Numeric overflow error!**
 
+# Testing and Issues
+
+To test the BARES program, try to run the executable setting  "data/expressions" file as input and "data/solve" file as output.
+> $ ./bin/bares data/expressions data/solve
+
+It is known that this program treats the  ill formed integers that appears after a valid operator as a missing term.
+
 # Authorship
 
 Developed by Lucas Miguel (lus-cas@outlook.com) and Elyton Victor (pleshw@outlook.com).

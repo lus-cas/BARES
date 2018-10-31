@@ -5,13 +5,15 @@
 
 int main(int argc, char const *argv[]){  
 
-    Parser parser;
-    Evaluator evaluator;
+    Parser parser;          // Parser object
+    Evaluator evaluator;    // Evaluator object
 
-    std::string expression;
-    std::vector<Token> postfix;
+    std::string expression;     //  represents the current expression
+    std::vector<Token> postfix; // stores the result of the infix to postfix process
 
+    // changes the running type
     if(argc == 1){
+        //std::cout and std::cin running type
 
         std::vector<std::string> expressions;
 
@@ -46,8 +48,9 @@ int main(int argc, char const *argv[]){
         }
 
     }else if(argc == 3){
+        //ifstream and ofstream running type
 
-        File file(argv[1], argv[2]);
+        File file(argv[1], argv[2]);   // File object
 
         while(!file.is_eof()){
             expression = file.read_line();
