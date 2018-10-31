@@ -4,12 +4,15 @@
 #include <string>
 #include <iostream>
 
-struct Result{
-    typedef std::ptrdiff_t posistion_t; //column location determination.
+/// This struct represents the result of the parsing operation.
 
-    //possible syntax errors.
+struct Result{
+    //=== alias
+    typedef std::ptrdiff_t posistion_t; //!< column location determination.
+
+    /// possible syntax errors.
     enum code_t{
-            OK, //expression successfuly parsed.
+            OK,  //!< expression successfuly parsed
             UNEXPECTED_END_OF_EXPRESSION,
             ILL_FORMED_INTEGER,
             MISSING_TERM,

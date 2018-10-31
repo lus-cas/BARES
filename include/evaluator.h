@@ -12,11 +12,12 @@
 #include "token.h"		// Token struct
 #include "result.h"		// Result struct
 
+/// Changes the expression representation and solves then.
 /*!
  * Converts an arithmetic expression in infix notation into postfix
  * representation. After the convertion is successfyly done, the
  * program evaluates the expression based on stacks and queues
-*/
+ */
 
 //=== alias
 using value_t = long int;	//!< type to operate on

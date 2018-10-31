@@ -6,9 +6,7 @@
 #include <string>	//std::string
 #include <sstream>	//std::sstream
 
-/*!
- * This class offers file handling
-*/
+///This class offers file handling
 
 class File{
 	private:
