@@ -4,7 +4,11 @@
 #include <string>
 #include <iostream>
 
-/// This struct represents the result of the parsing operation.
+/// This struct represents the results in this program.
+/*!
+ * This struct represents the result of the parsing process or evaluating operation.
+ * Also, offers errors handling.
+ */
 
 struct Result{
     //=== alias
@@ -23,15 +27,17 @@ struct Result{
             NUMERIC_OVERFLOW
     };
 
-    code_t type;
-    posistion_t at_col;
+    //==== public members
+    code_t type;        //!< error code
+    posistion_t at_col; //!< stores the column number where the error happened
 
-    //default constructor
+    /// default constructor
     explicit Result(code_t type = OK, posistion_t at_col = 0){
         this->type = type;
         this->at_col = at_col;
     }
 
+    /// returns the error as a string
     std::string error_msg(){
         std::string error;
         this->at_col+=1;
