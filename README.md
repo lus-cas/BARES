@@ -60,4 +60,4 @@ It is known that this program treats the  ill formed integers that appears after
 
 # Authorship
 
-Developed by Lucas Miguel ([lus-cas](https://github.com/lus-cas)).
+Developed by [Lucas Miguel](https://github.com/luscasmm).
