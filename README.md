@@ -1,8 +1,8 @@
-# Introduction
+# BARES
 
 This is a **BARES (Basic ARithmetic Expression Evaluator based on Stacks)** programming project, that includes a recursive descending parser for **EBNF (Extended Backus-Naur Form)** grammar.
 
-# Compile and Run
+## Compile and Run
 
 In order to generate a BARES executable at the "bin" dir, run:
 > $ make
@@ -14,7 +14,7 @@ By using std::cin (input) and std::cout (output):
 > $ ./bin/bares
 
 
-# The Grammar
+## The Grammar
 
 The EBNF grammar used in this project represents arithmetic expressions that supports scope definition and operations with integers (-32768 to 32767):
 
@@ -38,7 +38,7 @@ This **EBNF** grammar is defined by the statements:
     <digit>            :=   "0" | <digit_excl_zero>;
 
 
-# Error Handling
+## Error Handling
 
 Syntax and run-time errors are both supported by the program.
 
@@ -51,13 +51,13 @@ Syntax and run-time errors are both supported by the program.
 7. **Division by zero!**
 8. **Numeric overflow error!**
 
-# Testing and Issues
+## Testing and Issues
 
 To test the BARES program, try to run the executable setting  "data/expressions" file as input and "data/solve" file as output.
 > $ ./bin/bares data/expressions data/solve
 
 It is known that this program treats the  ill formed integers that appears after a valid operator as a missing term.
 
-# Authorship
+## Authorship
 
 Developed by [Lucas Miguel](https://github.com/luscasmm).
